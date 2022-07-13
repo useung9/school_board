@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ 	<typeAliases>
+ 		<typeAlias type="spring.tendinous.school.dto.Board" alias="Board"/>
+ 		<typeAlias type="spring.tendinous.school.dto.User" alias="User"/> 
+ 		<!-- <typeAlias type="spring.tendinous.school.dto.Delaration" alias="Delaration"/> -->
+ 		<typeAlias type="spring.tendinous.school.dto.Reply" alias="Reply"/>
+ 		
+ 	</typeAliases>
+</configuration>

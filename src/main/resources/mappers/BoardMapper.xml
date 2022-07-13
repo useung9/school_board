@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="spring.tendinous.school.BoardMapper">
+	<!-- 전체리스트 -->
+	<select id="selectList" resultType="Board">
+		select * from board
+		where removeyn ='n'
+		<include refid="find" />
+		order by bnum desc
+		limit #{startNum}, #{perPage}
+	</select>
+	
+	<!-- 전체 조회글 -->
+	<select id="selectTotalCnt" resultType="int">
+		select count(*) from
+		board
+		where removeyn ='n'
+	</select>
+
+	<!-- 게시물 번호로 선택 조회 Select One -->
+	<select id="selectOne" resultType="Board">
+		select * from board
+		where bnum
+		= #{bnum}
+	</select>
+
+	<!-- 작성자 id의 제일 최신 1건 조회 -->
+	<select id="selectOneid" resultType="Board">
+		select * from board where
+		bid=#{userid} order by regidate desc limit 1;
+	</select>
+	
+	<!-- 인기 게시물조회 -->
+	<select id="poplist" resultType="Board">
+		select * from board  order by breadcnt desc limit 5;
+	</select>
+	
+	<!-- 조회조건 sql문 -->
+	<sql id="find">
+		<if test="findkey =='id'">
+			AND bid LIKE concat('%' , #{findvalue} , '%')
+		</if>
+		<if test="findkey=='subcon'">
+			AND (bsubject LIKE concat('%' , #{findvalue} , '%')
+			OR
+			bcontent LIKE concat('%' , #{findvalue} , '%'))
+		</if>
+	</sql>
+
+	<!-- 조회수증가 -->
+	<update id="update_boardcnt">
+		update board
+		set breadcnt = breadcnt+1
+		where bnum
+		=#{bnum}
+	</update>
+	
+	<!-- 게시물 등록 -->
+	<insert id="boardwrite">
+		insert into board (bid, bsubject, bcontent) values(#{bid},#{bsubject},#{bcontent});
+	</insert>
+
+</mapper>
